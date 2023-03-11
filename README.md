@@ -41,7 +41,7 @@ erDiagram
         int trip_id
         int station_id
         array path_to_destination
-        int next_id
+        int previous_id
     }
     
     TRIP_SEAT {

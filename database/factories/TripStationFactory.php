@@ -27,7 +27,7 @@ class TripStationFactory extends Factory
         return [
             'trip_id' => Trip::factory(),
             'station_id' => Station::factory(),
-            'next_id' => TripStation::factory(),
+            'previous_id' => TripStation::factory(),
             'path_to_destination' => '{}',
         ];
     }

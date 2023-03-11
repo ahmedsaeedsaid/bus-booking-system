@@ -19,7 +19,7 @@ class CreateTripStationsTable extends Migration
             $table->id();
             $table->foreignId('trip_id')->constrained();
             $table->foreignId('station_id')->constrained();
-            $table->foreignId('next_id')->constrained('trip_stations');
+            $table->foreignId('previous_id')->constrained('trip_stations');
             $table->json('path_to_destination')->nullable();
             $table->timestamps();
         });

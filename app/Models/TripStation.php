@@ -18,7 +18,7 @@ class TripStation extends Model
     protected $fillable = [
         'trip_id',
         'station_id',
-        'next_id',
+        'previous_id',
         'path_to_destination',
     ];
 
@@ -31,7 +31,7 @@ class TripStation extends Model
         'id' => 'integer',
         'trip_id' => 'integer',
         'station_id' => 'integer',
-        'next_id' => 'integer',
+        'previous_id' => 'integer',
         'path_to_destination' => 'array',
     ];
 
@@ -45,7 +45,7 @@ class TripStation extends Model
         return $this->belongsTo(Station::class);
     }
 
-    public function next(): BelongsTo
+    public function previous(): BelongsTo
     {
         return $this->belongsTo(TripStation::class);
     }

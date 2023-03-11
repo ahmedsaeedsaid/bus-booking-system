@@ -22,7 +22,7 @@ models:
   TripStation:
     trip_id: id foreign:trips
     station_id: id foreign:stations
-    next_id: id foreign:trip_stations
+    previous_id: id foreign:trip_stations
     path_to_destination: json nullable
 
   TripSeat:
