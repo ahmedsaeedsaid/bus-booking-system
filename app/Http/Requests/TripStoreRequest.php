@@ -25,7 +25,7 @@ class TripStoreRequest extends FormRequest
     {
         return [
             'bus_id' => 'required',
-            'stations' => 'required|array',
+            'path' => 'required|array',
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Trip;
-use App\Models\TripSeat;
 use App\Models\TripStation;
 
 class TripService
@@ -19,19 +18,19 @@ class TripService
     {
         $trip = Trip::create($trip_data)->fresh();
 
-        $this->createTripStations($trip, $trip_data['stations']);
+        $this->createTripStations($trip, $trip_data['path']);
 
         $this->createTripSeats($trip);
 
         return $trip;
     }
 
-    private function createTripStations(Trip $trip, array $stations): void
+    private function createTripStations(Trip $trip, array $path): void
     {
         $previous_id = null;
-        $path_to_destination = $stations;
+        $path_to_destination = $path;
 
-        foreach ($stations as $station) {
+        foreach ($path as $station) {
             array_shift($path_to_destination);
 
             $trip_station = $trip->stations()->create([

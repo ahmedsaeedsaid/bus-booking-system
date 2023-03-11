@@ -32,8 +32,7 @@ erDiagram
     
     TRIP {
         int bus_id
-        int source_station_id
-        int dest_station_id
+        array path
     }
     
     TRIP_STATION {

@@ -18,6 +18,7 @@ class CreateTripsTable extends Migration
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bus_id')->constrained();
+            $table->json('path')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

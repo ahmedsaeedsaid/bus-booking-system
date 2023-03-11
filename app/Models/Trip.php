@@ -19,6 +19,7 @@ class Trip extends Model
      */
     protected $fillable = [
         'bus_id',
+        'path',
     ];
 
     /**
@@ -29,6 +30,7 @@ class Trip extends Model
     protected $casts = [
         'id' => 'integer',
         'bus_id' => 'integer',
+        'path' => 'array',
     ];
 
     public function bus(): BelongsTo

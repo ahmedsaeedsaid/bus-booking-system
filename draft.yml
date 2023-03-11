@@ -16,6 +16,7 @@ models:
 
   Trip:
     bus_id: id foreign:buses
+    path: json
     timestamps: true
     softDeletes: true
 
