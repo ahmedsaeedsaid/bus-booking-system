@@ -19,8 +19,8 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->foreignId('seat_id')->constrained();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('source_trip_station_id')->constrained('trip_stations');
-            $table->foreignId('destination_trip_station_id')->constrained('trip_stations');
+            $table->foreignId('source_station_id')->constrained('stations');
+            $table->foreignId('destination_station_id')->constrained('stations');
             $table->timestamps();
         });
 

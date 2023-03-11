@@ -25,6 +25,7 @@ class TripFactory extends Factory
     {
         return [
             'bus_id' => Bus::factory(),
+            'path' => '{}',
             'softdeletes' => $this->faker->word,
         ];
     }

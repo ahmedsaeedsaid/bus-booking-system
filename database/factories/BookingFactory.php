@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Station;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Booking;
 use App\Models\Seat;
-use App\Models\TripStation;
 
 class BookingFactory extends Factory
 {
@@ -26,8 +26,8 @@ class BookingFactory extends Factory
     {
         return [
             'seat_id' => Seat::factory(),
-            'source_trip_station_id' => TripStation::factory(),
-            'destination_trip_station_id' => TripStation::factory(),
+            'source_station_id' => Station::factory(),
+            'destination_station_id' => Station::factory(),
         ];
     }
 }

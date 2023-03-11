@@ -38,12 +38,12 @@ class Trip extends Model
         return $this->belongsTo(Bus::class);
     }
 
-    public function stations(): HasMany
+    public function tripStations(): HasMany
     {
         return $this->hasMany(TripStation::class);
     }
 
-    public function seats(): HasMany
+    public function tripSeats(): HasMany
     {
         return $this->hasMany(TripSeat::class);
     }

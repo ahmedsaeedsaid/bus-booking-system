@@ -18,8 +18,8 @@ class Booking extends Model
     protected $fillable = [
         'seat_id',
         'user_id',
-        'source_trip_station_id',
-        'destination_trip_station_id',
+        'source_station_id',
+        'destination_station_id',
     ];
 
     /**
@@ -30,8 +30,8 @@ class Booking extends Model
     protected $casts = [
         'id' => 'integer',
         'seat_id' => 'integer',
-        'source_trip_station_id' => 'integer',
-        'destination_trip_station_id' => 'integer',
+        'source_station_id' => 'integer',
+        'destination_station_id' => 'integer',
     ];
 
     public function user(): BelongsTo
@@ -44,13 +44,13 @@ class Booking extends Model
         return $this->belongsTo(Seat::class);
     }
 
-    public function sourceTripStation(): BelongsTo
+    public function sourceStation(): BelongsTo
     {
-        return $this->belongsTo(TripStation::class);
+        return $this->belongsTo(Station::class);
     }
 
-    public function destinationTripStation(): BelongsTo
+    public function destinationStation(): BelongsTo
     {
-        return $this->belongsTo(TripStation::class);
+        return $this->belongsTo(Station::class);
     }
 }
