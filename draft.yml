@@ -1,0 +1,36 @@
+models:
+  Bus:
+    brand: string
+    timestamps: true
+    softDeletes: true
+
+  Seat:
+    bus_id: id foreign:buses
+    timestamps: true
+    softDeletes: true
+
+  Station:
+    name: string
+    timestamps: true
+    softDeletes: true
+
+  Trip:
+    bus_id: id foreign:buses
+    timestamps: true
+    softDeletes: true
+
+  TripStation:
+    trip_id: id foreign:trips
+    station_id: id foreign:stations
+    next_id: id foreign:trip_stations
+    path_to_destination: json nullable
+
+  TripSeat:
+    trip_id: id foreign:trips
+    seat_id: id foreign:seats
+    station_ids: json nullable
+
+  Booking:
+    seat_id: id foreign:seats
+    source_trip_station_id: id foreign:trip_stations
+    destination_trip_station_id: id foreign:trip_stations
