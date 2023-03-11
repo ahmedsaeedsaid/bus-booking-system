@@ -34,8 +34,7 @@ class TripService
         foreach ($stations as $station) {
             array_shift($path_to_destination);
 
-            $trip_station = TripStation::create([
-                'trip_id' => $trip->id,
+            $trip_station = $trip->stations()->create([
                 'station_id' => $station,
                 'previous_id' => $previous_id,
                 'path_to_destination' => $path_to_destination,
@@ -48,8 +47,7 @@ class TripService
     private function createTripSeats(Trip $trip): void
     {
         foreach ($trip->bus->seats as $seat) {
-            TripSeat::create([
-                'trip_id' => $trip->id,
+            $trip->seats()->create([
                 'seat_id' => $seat->id,
                 'station_ids' => [],
             ]);
