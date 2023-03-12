@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookintStoreRequest;
 use App\Http\Requests\TripIndexRequest;
+use App\Models\Trip;
 use App\Services\TripService;
 use App\Http\Resources\TripResource;
 use Illuminate\Http\JsonResponse;
@@ -22,6 +24,5 @@ class TripController extends Controller
 
         return response()->json(TripResource::collection($trips), Response::HTTP_OK);
     }
-
 
 }
