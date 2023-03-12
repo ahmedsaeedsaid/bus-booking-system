@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('trips', TripController::class)->only('index');
+Route::apiResource('trips', TripController::class)->only('index', 'store');
 
 Route::apiResource("trips.reservation", ReservationController::class)->only('store');
 

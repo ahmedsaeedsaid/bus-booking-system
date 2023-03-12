@@ -21,7 +21,7 @@ class ReservationController extends Controller
 
     public function store(Trip $trip, ReservationStoreRequest $request): Response
     {
-        $this->reservationService->book(
+        $this->reservationService->createOne(
             $trip,
             $request->source_id,
             $request->destination_id,

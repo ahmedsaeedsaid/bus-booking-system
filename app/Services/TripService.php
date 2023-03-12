@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Trip;
 use App\Models\TripStation;
+use Illuminate\Support\Facades\DB;
 
 class TripService
 {
@@ -13,6 +14,13 @@ class TripService
         $this->seatService = new SeatService();
     }
 
+    /**
+     * @param int $source_id
+     * @param int $destination_id
+     * @return array.
+     *
+     * get trips pass through from source station to destination station
+     */
     public function getMany(int $source_id, int $destination_id): array
     {
         $trips = [];
@@ -26,7 +34,6 @@ class TripService
                 $source_id,
                 $destination_id
             );
-
             if (!empty($seats))
             {
                 $trip = $trip_station->trip;
@@ -38,15 +45,20 @@ class TripService
         return $trips;
     }
 
-    public function createOne(array $trip_data)
+
+    public function createOne(array $trip_data): Trip
     {
-        $trip = Trip::create($trip_data)->fresh();
+        return DB::transaction(function($trip_data) use ($trip_data)
+        {
+            $trip = Trip::create($trip_data)->fresh();
 
-        $this->createTripStations($trip, $trip_data['path']);
+            $this->createTripStations($trip, $trip_data['path']);
 
-        $this->createTripSeats($trip);
+            $this->createTripSeats($trip);
 
-        return $trip;
+            return $trip;
+        });
+
     }
 
     private function createTripStations(Trip $trip, array $path): void

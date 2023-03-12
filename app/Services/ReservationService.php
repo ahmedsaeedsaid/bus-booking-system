@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Exceptions\SeatUnAvailableException;
 use App\Models\Reservation;
 use App\Models\Trip;
+use Illuminate\Support\Facades\DB;
 
 class ReservationService
 {
@@ -13,21 +15,36 @@ class ReservationService
         $this->seatService = new SeatService();
     }
 
-    public function book(Trip $trip, int $source_id, int $destination_id, int $seat_id): void
-    {
-        $this->seatService->book(
-            $trip,
-            $source_id,
-            $destination_id,
-            $seat_id
-        );
+    /**
+     * @param Trip $trip
+     * @param int $source_id
+     * @param int $destination_id
+     * @param int $seat_id
+     * @return void
+     *
+     * create reservation.
+     */
 
-        Reservation::create([
-            'trip_id' => $trip->id,
-            'source_station_id' => $source_id,
-            'destination_station_id' => $destination_id,
-            'seat_id' => $seat_id
-        ]);
+    public function createOne(Trip $trip, int $source_id, int $destination_id, int $seat_id): void
+    {
+        DB::transaction(function(Trip $trip, int $source_id, int $destination_id, int $seat_id)
+            use ($trip, $source_id, $destination_id, $seat_id)
+        {
+            $this->seatService->reserve(
+                $trip,
+                $source_id,
+                $destination_id,
+                $seat_id
+            );
+
+            Reservation::create([
+                'trip_id' => $trip->id,
+                'source_station_id' => $source_id,
+                'destination_station_id' => $destination_id,
+                'seat_id' => $seat_id
+            ]);
+        });
+        
     }
 
 }
