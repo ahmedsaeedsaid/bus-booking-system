@@ -217,9 +217,10 @@ sequenceDiagram
     }
   ```
   
-### How can you Set up the Environment
+### set up the environment
 1. create MySql DB `bus_booking`.
-2. run command `composer install`.
-3. run command `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"`.
-4. run command `php artisan migrate --seed`.
-5. run command `php artisan serve`.
+2. create `.env` from `example.env`.
+3. run command `composer install`.
+4. run command `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"`.
+5. run command `php artisan migrate --seed`.
+6. run command `php artisan serve`.
