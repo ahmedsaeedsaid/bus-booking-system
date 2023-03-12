@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TripIndexRequest;
-use App\Http\Requests\TripStoreRequest;
 use App\Services\TripService;
-use JetBrains\PhpStorm\NoReturn;
+use App\Http\Resources\TripResource;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class TripController extends Controller
 {
@@ -15,17 +16,11 @@ class TripController extends Controller
         $this->tripService = new TripService();
     }
 
-    public function store(TripStoreRequest $request): void
-    {
-        $trip_data = $request->validated();
-        $this->tripService->createOne($trip_data);
-    }
-
-    public function index(TripIndexRequest $request)
+    public function index(TripIndexRequest $request): JsonResponse
     {
         $trips = $this->tripService->getMany($request->source_id, $request->destination_id);
 
-        return $trips;
+        return response()->json(TripResource::collection($trips), Response::HTTP_OK);
     }
 
 

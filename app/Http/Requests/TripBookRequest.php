@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TripStoreRequest extends FormRequest
+class TripBookRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class TripStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'bus_id' => 'required',
-            'path' => 'required|array',
+            'source_id' => 'required|exists:stations,id',
+            'destination_id' => 'required|exists:stations,id',
+            'seat_id' => 'required|exists:trip_seats,seat_id,trip_id,'.$this->trip_id,
         ];
     }
 }

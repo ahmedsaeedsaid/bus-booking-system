@@ -51,19 +51,12 @@ class TripService
 
     private function createTripStations(Trip $trip, array $path): void
     {
-        $previous_id = null;
-        $path_to_destination = $path;
-
-        foreach ($path as $station) {
-            array_shift($path_to_destination);
-
-            $trip_station = $trip->tripStations()->create([
+        while ($station = array_shift($path))
+        {
+            $trip->tripStations()->create([
                 'station_id' => $station,
-                'previous_id' => $previous_id,
-                'path_to_destination' => $path_to_destination,
-            ])->fresh();
-
-            $previous_id = $trip_station->id;
+                'path_to_destination' => $path,
+            ]);
         }
     }
 

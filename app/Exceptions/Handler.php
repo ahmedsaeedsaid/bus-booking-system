@@ -38,4 +38,12 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $e)
+    {
+        if ($e instanceof SeatUnAvailableException)  {
+            return $e->render();
+        }
+        return parent::render($request, $e);
+    }
 }

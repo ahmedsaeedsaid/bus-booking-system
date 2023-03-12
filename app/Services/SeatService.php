@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\TripSeat;
-use App\Models\TripStation;
 
 class SeatService
 {
@@ -15,11 +13,12 @@ class SeatService
         $available_seats = [];
         $path = $this->getPathFromSourceToDestination($trip, $source_id, $destination_id);
 
-        foreach ($trip->tripSeats() as $trip_seat)
+        foreach ($trip->tripSeats as $trip_seat)
         {
+
             if(empty(array_intersect($trip_seat->station_ids, $path)))
             {
-                $available_seats[] = $trip->tripSeats()->seat;
+                $available_seats[] = $trip_seat->seat;
             }
         }
 
@@ -50,7 +49,7 @@ class SeatService
         $source_key = array_search($source_id, $trip->path);
         $destination_key = array_search($destination_id, $trip->path);
 
-        return array_slice($trip->path, $source_key, ($destination_key - $source_key));
+        return array_slice($trip->path, $source_key, ($destination_key - $source_key) + 1);
     }
 
 }
