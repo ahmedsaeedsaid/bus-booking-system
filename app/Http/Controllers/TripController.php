@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookintStoreRequest;
+use App\Http\Requests\ReservationStoreRequest;
 use App\Http\Requests\TripIndexRequest;
 use App\Models\Trip;
 use App\Services\TripService;

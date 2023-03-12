@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BookintStoreRequest;
+use App\Http\Requests\ReservationStoreRequest;
 use App\Http\Requests\TripIndexRequest;
 use App\Models\Trip;
-use App\Services\BookingService;
+use App\Services\ReservationService;
 use App\Services\TripService;
 use App\Http\Resources\TripResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class BookingController extends Controller
+class ReservationController extends Controller
 {
-    private BookingService $bookingService;
+    private ReservationService $reservationService;
     public function __construct()
     {
-        $this->bookingService = new BookingService();
+        $this->reservationService = new ReservationService();
     }
 
-    public function store(Trip $trip, BookintStoreRequest $request): Response
+    public function store(Trip $trip, ReservationStoreRequest $request): Response
     {
-        $this->bookingService->book(
+        $this->reservationService->book(
             $trip,
             $request->source_id,
             $request->destination_id,

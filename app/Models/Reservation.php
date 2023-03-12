@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Booking extends Model
+class Reservation extends Model
 {
     use HasFactory;
 
@@ -16,6 +16,7 @@ class Booking extends Model
      * @var array
      */
     protected $fillable = [
+        'trip_id',
         'seat_id',
         'user_id',
         'source_station_id',
@@ -29,6 +30,8 @@ class Booking extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'trip_id' => 'integer',
+        'user_id' => 'integer',
         'seat_id' => 'integer',
         'source_station_id' => 'integer',
         'destination_station_id' => 'integer',

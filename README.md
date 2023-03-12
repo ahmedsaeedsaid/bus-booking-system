@@ -49,9 +49,10 @@ erDiagram
         array station_ids
     }
     
-    BOOKING {
+    RESERVATION {
         int id
         int seat_id
+        int user_id
         int source_trip_station_id
         int destination_trip_station_id
     }
@@ -60,11 +61,10 @@ erDiagram
     TRIP ||--|{ TRIP_STATION : has
     STATION ||--|{ TRIP_STATION : has
     TRIP ||--|| BUS : using
-    SEAT ||--|{ BOOKING : has
+    SEAT ||--|{ RESERVATION : has
     TRIP_SEAT ||--|{ TRIP : has
     TRIP_SEAT ||--|{ SEAT : has
-    TRIP_STATION ||--|{ BOOKING : source
-    TRIP_STATION ||--|{ BOOKING : destination
-    TRIP_STATION ||--|| TRIP_STATION : next
+    TRIP_STATION ||--|{ RESERVATION : source
+    TRIP_STATION ||--|{ RESERVATION : destination
 
 ```

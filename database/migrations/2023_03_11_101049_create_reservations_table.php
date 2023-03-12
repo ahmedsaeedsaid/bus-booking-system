@@ -15,9 +15,9 @@ class CreateBookingsTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('seat_id')->constrained();
+            $table->foreignId('seat_id')->constrained('seats');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('source_station_id')->constrained('stations');
             $table->foreignId('destination_station_id')->constrained('stations');
@@ -34,6 +34,6 @@ class CreateBookingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('reservations');
     }
 }

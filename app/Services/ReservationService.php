@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Booking;
+use App\Models\Reservation;
 use App\Models\Trip;
 
-class BookingService
+class ReservationService
 {
     private SeatService $seatService;
     public function __construct()
@@ -22,7 +22,7 @@ class BookingService
             $seat_id
         );
 
-        Booking::create([
+        Reservation::create([
             'trip_id' => $trip->id,
             'source_station_id' => $source_id,
             'destination_station_id' => $destination_id,

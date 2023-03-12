@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\TripController;
@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('trips', TripController::class)->only('index');
 
-Route::apiResource("trips.booking", BookingController::class)->only('store');
+Route::apiResource("trips.reservation", ReservationController::class)->only('store');
 
