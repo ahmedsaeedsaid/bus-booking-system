@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-class UnValidTripStationsException extends Exception
+class InvalidTripStationsException extends Exception
 {
 
     public function __construct(int $source_id, int $destination_id, int $code = 0, ?Throwable $previous = null)

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\SeatUnAvailableException;
-use App\Exceptions\UnValidTripStationsException;
+use App\Exceptions\InvalidTripStationsException;
 use App\Models\Trip;
 use App\Models\TripSeat;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -18,7 +18,7 @@ class SeatService
      * @return array seats.
      *
      * get available seats for a trip.
-     * @throws UnValidTripStationsException
+     * @throws InvalidTripStationsException
      */
     public function getAvailable(Trip $trip, int $source_id, int $destination_id): array
     {
@@ -35,7 +35,7 @@ class SeatService
                 }
             }
 
-        } catch (UnValidTripStationsException $e){
+        } catch (InvalidTripStationsException $e){
             return $available_seats;
         }
 
@@ -51,7 +51,7 @@ class SeatService
      *
      * reserve seat for a trip for stations between source to destination.
      * @throws SeatUnAvailableException
-     * @throws UnValidTripStationsException
+     * @throws InvalidTripStationsException
      * @throws ModelNotFoundException
      */
     public function reserve(Trip $trip, int $source_id, int $destination_id, int $seat_id): void
@@ -75,7 +75,7 @@ class SeatService
      * @return array .
      *
      * get stations from source to destination.
-     * @throws UnValidTripStationsException
+     * @throws InvalidTripStationsException
      */
     private function getPathBetweenTwoStations(Trip $trip, int $source_id, int $destination_id): array
     {
@@ -83,7 +83,7 @@ class SeatService
         $destination_key = array_search($destination_id, $trip->path);
 
         if (!$source_key || !$destination_key)
-            throw new UnValidTripStationsException($source_id, $destination_id);
+            throw new InvalidTripStationsException($source_id, $destination_id);
 
         return array_slice($trip->path, $source_key, ($destination_key - $source_key) + 1);
     }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TripIndexRequest extends FormRequest
+class AuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class TripIndexRequest extends FormRequest
     public function rules()
     {
         return [
-            'source_id' => 'required|exists:stations,id',
-            'destination_id' => 'required|exists:stations,id',
+            'email' => 'required',
+            'password' => 'required',
         ];
     }
 }

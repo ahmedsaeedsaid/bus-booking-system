@@ -93,7 +93,7 @@ sequenceDiagram
     participant db as Database
     a->>tc: get list of trips [source_id, destination_id]
     tc->>ts: getMany [source_id, destination_id]
-    ts->>db: get trips path throw [source_id, destination_id]
+    ts->>db: trips that pass through [source_id, destination_id]
     db->>ts: trips
     ts->>ss: available seats [trip, source_id, destination_id]
     ss->>ss: getPathBetweenTwoStations [source_id, destination_id]
@@ -127,6 +127,7 @@ sequenceDiagram
 
 - method: `GET`
 - uri: `/api/trips?source_id=1&destination_id=2`
+- header: `Bearer Token`
 
 - response:
   ```json
@@ -183,6 +184,7 @@ sequenceDiagram
 
 - method: `POST`
 - uri: `/api/trips/2/reservation`
+- header: `Bearer Token`
 - request:
   ```json
   {
@@ -195,3 +197,29 @@ sequenceDiagram
   ```json
   "seat booked successfully"
   ```
+
+#### login
+
+- method: `POST`
+- uri: `/api/login`
+- request:
+  ```json
+  {
+     "email": "admin@gmail.com",
+     "password": "password"
+  }
+  ```
+- response:
+  ```json
+    {
+      "id": 1,
+      "token": "4|g2MOB40k80T2uyATxNhZHv4pr4SokXtdAzZPnKZ4"
+    }
+  ```
+  
+### How can you Set up the Environment
+1. create MySql DB `bus_booking`.
+2. run command `composer install`.
+3. run command `php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"`.
+4. run command `php artisan migrate --seed`.
+5. run command `php artisan serve`.

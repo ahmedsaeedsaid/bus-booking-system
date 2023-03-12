@@ -43,7 +43,9 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof SeatUnAvailableException) {
             return $e->render();
-        } elseif ($e instanceof UnValidTripStationsException) {
+        } elseif ($e instanceof InvalidTripStationsException) {
+            return $e->render();
+        } elseif ($e instanceof InvalidEmailOrPasswordException) {
             return $e->render();
         }
         return parent::render($request, $e);
