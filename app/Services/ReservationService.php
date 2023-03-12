@@ -27,8 +27,7 @@ class ReservationService
 
     public function createOne(Trip $trip, int $source_id, int $destination_id, int $seat_id): void
     {
-        DB::transaction(function(Trip $trip, int $source_id, int $destination_id, int $seat_id)
-            use ($trip, $source_id, $destination_id, $seat_id)
+        DB::transaction(function() use ($trip, $source_id, $destination_id, $seat_id)
         {
             $this->seatService->reserve(
                 $trip,

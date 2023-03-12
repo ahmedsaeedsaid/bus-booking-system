@@ -48,7 +48,7 @@ class TripService
 
     public function createOne(array $trip_data): Trip
     {
-        return DB::transaction(function($trip_data) use ($trip_data)
+        return DB::transaction(function() use ($trip_data)
         {
             $trip = Trip::create($trip_data)->fresh();
 

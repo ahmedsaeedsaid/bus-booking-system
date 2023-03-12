@@ -23,8 +23,7 @@ class StationFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'softdeletes' => $this->faker->word,
+            'name' => $this->faker->city,
         ];
     }
 }

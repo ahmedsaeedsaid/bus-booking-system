@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Seat;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Bus;
 
 class BusFactory extends Factory
@@ -16,6 +16,18 @@ class BusFactory extends Factory
     protected $model = Bus::class;
 
     /**
+     * Configure the model factory.
+     *
+     * @return $this
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Bus $bus) {
+            $bus->seats()->saveMany(Seat::factory()->count(12)->make());
+        });
+    }
+
+    /**
      * Define the model's default state.
      *
      * @return array
@@ -24,7 +36,6 @@ class BusFactory extends Factory
     {
         return [
             'brand' => $this->faker->word,
-            'softdeletes' => $this->faker->word,
         ];
     }
 }

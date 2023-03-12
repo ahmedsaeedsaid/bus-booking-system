@@ -24,8 +24,7 @@ class SeatFactory extends Factory
     public function definition()
     {
         return [
-            'bus_id' => Bus::factory(),
-            'softdeletes' => $this->faker->word,
         ];
+
     }
 }

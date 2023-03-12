@@ -35,7 +35,7 @@ class SeatService
                 }
             }
 
-        } catch (UnValidTripStationsException){
+        } catch (UnValidTripStationsException $e){
             return $available_seats;
         }
 
