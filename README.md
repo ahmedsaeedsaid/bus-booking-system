@@ -10,6 +10,17 @@
 
 ## Design
 
+```mermaid
+erDiagram
+    Trip ||--||Bus: ""
+    Bus ||--|{ Seat: ""
+    Trip ||--|{ Station: ""
+    Reservation ||--|| Seat: ""
+    Reservation ||--|| Trip: ""
+    Reservation ||--|{ Station: ""
+    Reservation ||--|| User: ""
+```
+
 ### ERD
 
 ```mermaid
@@ -68,3 +79,119 @@ erDiagram
     TRIP_STATION ||--|{ RESERVATION : destination
 
 ```
+
+## Sequences
+
+### get a list of trips that have available seats
+```mermaid
+sequenceDiagram
+    autonumber
+    participant a as app
+    participant tc as Trip Controller
+    participant ts as Trip Service
+    participant ss as Seat service
+    participant db as Database
+    a->>tc: get list of trips [source_id, destination_id]
+    tc->>ts: getMany [source_id, destination_id]
+    ts->>db: get trips path throw [source_id, destination_id]
+    db->>ts: trips
+    ts->>ss: available seats [trip, source_id, destination_id]
+    ss->>ss: getPathBetweenTwoStations [source_id, destination_id]
+    ss->>ss: get seats available on these path
+    ss->>ts: seats
+    ts->>tc: trips that have available seats
+    tc->>a: trips
+```
+
+### reserve a seat on a trip
+```mermaid
+sequenceDiagram
+    autonumber
+    participant a as app
+    participant rc as Reservation Controller
+    participant ts as Reservation Service
+    participant ss as Seat service
+    participant db as Database
+    a->>rc: reserve a seat [trip, source_id, destination_id, seat_id]
+    rc->>ts: create reservation [trip, source_id, destination_id, seat_id]
+    ts->>ss: reserve seat on these stations [trip, source_id, destination_id, seat_id]
+    ss->>ss: getPathBetweenTwoStations [source_id, destination_id]
+    ss->>ss: add path to seat
+    ts->>db: create reservation    
+    rc->>a: done
+```
+
+### api documentation
+
+#### get list of trips
+
+- method: `GET`
+- uri: `/api/trips?source_id=1&destination_id=2`
+
+- response:
+  ```json
+  [
+    {
+        "id": 2,
+        "bus": {
+            "id": 2,
+            "brand": "inventore"
+        },
+        "seats": [
+            {
+                "id": 13
+            },
+            {
+                "id": 14
+            },
+            {
+                "id": 15
+            },
+            {
+                "id": 16
+            },
+            {
+                "id": 17
+            },
+            {
+                "id": 18
+            },
+            {
+                "id": 19
+            },
+            {
+                "id": 20
+            },
+            {
+                "id": 21
+            },
+            {
+                "id": 22
+            },
+            {
+                "id": 23
+            },
+            {
+                "id": 24
+            }
+        ]
+    }
+]
+
+
+#### book a seat on a trip
+
+- method: `POST`
+- uri: `/api/trips/2/reservation`
+- request:
+  ```json
+  {
+     "source_id": 1,
+     "destination_id": 2,
+     "seat_id": 13
+  }
+  ```
+- response:
+  ```json
+  "seat booked successfully"
+  ```
