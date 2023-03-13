@@ -17,7 +17,7 @@ use Mockery\MockInterface;
 use Tests\TestCase;
 
 
-class ReservationTest extends TestCase
+class ReservationServiceTest extends TestCase
 {
     use RefreshDatabase;
 
