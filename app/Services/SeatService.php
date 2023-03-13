@@ -82,7 +82,7 @@ class SeatService
         $source_key = array_search($source_id, $trip->path);
         $destination_key = array_search($destination_id, $trip->path);
 
-        if (!$source_key || !$destination_key)
+        if ($source_key === false || $destination_key === false)
             throw new InvalidTripStationsException($source_id, $destination_id);
 
         return array_slice($trip->path, $source_key, ($destination_key - $source_key) + 1);

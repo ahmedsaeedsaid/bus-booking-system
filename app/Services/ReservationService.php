@@ -38,6 +38,7 @@ class ReservationService
 
             Reservation::create([
                 'trip_id' => $trip->id,
+                'user_id' => auth()->id(),
                 'source_station_id' => $source_id,
                 'destination_station_id' => $destination_id,
                 'seat_id' => $seat_id
